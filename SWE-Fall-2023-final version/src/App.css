@@ -1,0 +1,70 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #2d2e31;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #ffffff;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* New styles for the navbar */
+.navbar {
+  background-color: #2d2e31; /* Or any color you like */
+  padding: 15px 0;
+  display: flex;
+  justify-content: space-around; /* evenly distribute links */
+  align-items: center; /* align vertically */
+  flex-wrap: wrap; /* wrap the items if they don't fit in one row */
+}
+
+.nav-links {
+  display: flex;
+  gap: 10px; /* space between links */
+}
+
+.nav-links a {
+  color: white; /* color of the links */
+  text-decoration: none; /* remove underlines */
+  padding: 5px 15px; /* spacing around the links for click area */
+  border-radius: 5px; /* rounded corners */
+  transition: background-color 0.3s ease; /* smooth transition for hover effect */
+}
+
+.nav-links a:hover {
+  background-color: #444; /* change color on hover */
+}
+
+/* Specific styles for SearchBar if needed */
+.searchbar-container {
+  margin-left: 10px;
+}
