@@ -1,127 +1,158 @@
 import React, { useState, useContext } from "react";
 import "../styles/Home.css";
+import "../styles/bootstrap.min.css";
+import "../styles/font-awesome.min.css";
+import "../styles/elegant-icons.css";
+import "../styles/magnific-popup.css";
+import "../styles/nice-select.css";
+import "../styles/owl.carousel.min.css";
+import "../styles/slicknav.min.css";
+import "../styles/style.css";
 import Item from "./Item";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "./CartContext";
 
-const Home = () => {
+const Home = ({ items }) => {
+  const navigate = useNavigate();
   const { addToCart } = useContext(CartContext);
-
-  // Dummy data for clothing items
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      name: "T-Shirt",
-      price: 17.99,
-      image:
-        "https://media.istockphoto.com/id/1354020635/photo/white-t-shirt-mockup-front-used-as-design-template-tee-shirt-blank-isolated-on-white.webp?b=1&s=170667a&w=0&k=20&c=X5WLEp3EiqJ7eQqGQPW6Vx8l7joo56cTsCmSOIaAfPI=",
-    },
-    {
-      id: 2,
-      name: "Jeans",
-      price: 49.99,
-      image:
-        "https://media.istockphoto.com/id/1354020635/photo/white-t-shirt-mockup-front-used-as-design-template-tee-shirt-blank-isolated-on-white.webp?b=1&s=170667a&w=0&k=20&c=X5WLEp3EiqJ7eQqGQPW6Vx8l7joo56cTsCmSOIaAfPI=",
-    },
-    {
-      id: 3,
-      name: "Shorts",
-      price: 15.99,
-      image:
-        "https://media.istockphoto.com/id/1354020635/photo/white-t-shirt-mockup-front-used-as-design-template-tee-shirt-blank-isolated-on-white.webp?b=1&s=170667a&w=0&k=20&c=X5WLEp3EiqJ7eQqGQPW6Vx8l7joo56cTsCmSOIaAfPI=",
-    },
-    {
-      id: 4,
-      name: "Dress",
-      price: 39.99,
-      image:
-        "https://media.istockphoto.com/id/1354020635/photo/white-t-shirt-mockup-front-used-as-design-template-tee-shirt-blank-isolated-on-white.webp?b=1&s=170667a&w=0&k=20&c=X5WLEp3EiqJ7eQqGQPW6Vx8l7joo56cTsCmSOIaAfPI=",
-    },
-    {
-      id: 5,
-      name: "Turtle neck",
-      price: 39.99,
-      image:
-        "https://media.istockphoto.com/id/1354020635/photo/white-t-shirt-mockup-front-used-as-design-template-tee-shirt-blank-isolated-on-white.webp?b=1&s=170667a&w=0&k=20&c=X5WLEp3EiqJ7eQqGQPW6Vx8l7joo56cTsCmSOIaAfPI=",
-    },
-    {
-      id: 6,
-      name: "Chinos",
-      price: 39.99,
-      image:
-        "https://media.istockphoto.com/id/1354020635/photo/white-t-shirt-mockup-front-used-as-design-template-tee-shirt-blank-isolated-on-white.webp?b=1&s=170667a&w=0&k=20&c=X5WLEp3EiqJ7eQqGQPW6Vx8l7joo56cTsCmSOIaAfPI=",
-    },
-    // ... more items
-  ]);
-
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredItems, setFilteredItems] = useState(items);
-
-  const handleSearch = () => {
-    if (searchTerm.trim() === "") {
-      // If search term is empty or just spaces, reset to all items
-      setFilteredItems(items);
-    } else {
-      // Filter items based on the search term
-      const result = items.filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredItems(result);
-    }
-  };
 
   const onProductClick = (itemName) => {
     console.log(`${itemName} clicked!`);
     // Add additional logic here for when an item is clicked
   };
 
-  const handleAddToCart = (item) => {
-    addToCart(item);
-    console.log(`Added ${item.name} to the cart!`);
+  const addItem = () => {
+    navigate(`/add-item`);
   };
 
   return (
     <div>
-      <div className="home-page">
-        <header className="home-header">
-          <h1>Clothes Shopping Site</h1>
-          <p>Your one-stop shop for the latest fashion!</p>
-          <p>Free shipping on orders over $50!</p>
-        </header>
+      <div className="home-container">
+        <section className="product-section">
+          <div className="product-container">
+            <div className="filter-controls">
+              <ul>
+                <h3 style={{ padding: 20 }}>Best Sellers</h3>
+              </ul>
+            </div>
 
-        {/* <div className="input-group mb-3">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search for a product..."
-            aria-label="Product search"
-            aria-describedby="search-button"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <div className="input-group-append">
-            <button
-              className="btn btn-outline-secondary"
-              type="button"
-              id="search-button"
-              onClick={handleSearch}
-            >
-              Enter
-            </button>
+            <div className="product-display">
+              {filteredItems?.map((item) => (
+                <div key={item.id} className="product-item">
+                  <Item
+                    image={item.image}
+                    name={item.name}
+                    price={item.price}
+                    description={item.description}
+                    quantity={item.quantity}
+                    inCart={item.inCart}
+                    onClick={() => onProductClick(item.description)}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-        </div> */}
+        </section>
       </div>
-      <section style={{ display: "flex", flexWrap: "wrap", margin: 10 }}>
-        {filteredItems.map((item) => (
-          <div key={item.id} className="item-container">
-            <Item
-              image={item.image}
-              name={item.name}
-              price={item.price}
-              onProductClick={() => onProductClick(item.name)}
-            />
+      {/* Product Section End */}
+      {/* Footer Section Begin */}
+      <footer className="footer">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-3 col-md-6 col-sm-6">
+              <div className="footer__about">
+                <div className="footer__logo">
+                  <a href="#">
+                    <img src="../images/footer-logo.png" alt="" />
+                  </a>
+                </div>
+                <p>
+                  The customer is at the heart of our unique business model,
+                  which includes design.
+                </p>
+                <a href="#">
+                  <img src="../images/payment.png" alt="" />
+                </a>
+              </div>
+            </div>
+            <div className="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+              <div className="footer__widget">
+                <h6>Shopping</h6>
+                <ul>
+                  <li>
+                    <a href="#">Clothing Store</a>
+                  </li>
+                  <li>
+                    <a href="#">Trending Shoes</a>
+                  </li>
+                  <li>
+                    <a href="#">Accessories</a>
+                  </li>
+                  <li>
+                    <a href="#">Sale</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="col-lg-2 col-md-3 col-sm-6">
+              <div className="footer__widget">
+                <h6>Shopping</h6>
+                <ul>
+                  <li>
+                    <a href="#">Contact Us</a>
+                  </li>
+                  <li>
+                    <a href="#">Payment Methods</a>
+                  </li>
+                  <li>
+                    <a href="#">Delivary</a>
+                  </li>
+                  <li>
+                    <a href="#">Return &amp; Exchanges</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+              <div className="footer__widget">
+                <h6>NewLetter</h6>
+                <div className="footer__newslatter">
+                  <p>
+                    Be the first to know about new arrivals, look books, sales
+                    &amp; promos!
+                  </p>
+                  <form action="#">
+                    <input type="text" placeholder="Your email" />
+                    <button type="submit">
+                      <span className="icon_mail_alt" />
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
-        ))}
-      </section>
+          <div className="row">
+            <div className="col-lg-12 text-center">
+              <div className="footer__copyright__text"></div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <div className="search-model">
+        <div className="h-100 d-flex align-items-center justify-content-center">
+          <div className="search-close-switch">+</div>
+          <form className="search-model-form">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search here....."
+            />
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
